@@ -1,26 +1,27 @@
 {
     "variables": {
-        "aws_access_key": "",
-        "aws_secret_key": "",
-        "profile": ""
+        "profile": null,
+        "region": null,
+        "instance_type": "t2.micro",
+        "ssh_username": "ubuntu",
+        "jenkins_admin_username": "admin",
+        "jenkins_admin_password": "admin"
     },
     "builders": [{
         "type": "amazon-ebs",
-        "access_key": "{{user `aws_access_key`}}",
-        "secret_key": "{{user `aws_secret_key`}}",
         "profile": "{{user `profile`}}",
-        "region": "eu-west-1",
+        "region": "{{user `region`}}",
         "source_ami_filter": {
             "filters": {
-            "virtualization-type": "hvm",
-            "name": "ubuntu/images/*ubuntu-xenial-16.04-amd64-server-*",
-            "root-device-type": "ebs"
+                "virtualization-type": "hvm",
+                "name": "ubuntu/images/*ubuntu-xenial-16.04-amd64-server-*",
+                "root-device-type": "ebs"
             },
             "owners": ["099720109477"],
             "most_recent": true
         },
-        "instance_type": "t2.micro",
-        "ssh_username": "ubuntu",
+        "instance_type": "{{user `instance_type`}}",
+        "ssh_username": "{{user `ssh_username`}}",
         "ami_name": "Jenkins-{{timestamp}}"
     }],
     "Provisioners": [
@@ -33,7 +34,12 @@
         },
         {
             "type": "ansible",
-            "playbook_file": "./jenkins.yml"
+            "playbook_file": "./jenkins.yml",
+            "extra_arguments": [
+                "-vvvv",
+                "--extra-vars", "jenkins_admin_username={{user `jenkins_admin_username`}}",
+                "--extra-vars", "jenkins_admin_password={{user `jenkins_admin_password`}}"
+            ]
         }
     ]
 }

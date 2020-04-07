@@ -16,7 +16,7 @@ To create the AMI:
 
     `ansible-galaxy install -r requirements.yml`
 
-2. Run the Packer script:
+2. Create `vars.json` (use `vars.json.example` as template) to customize the build
 
     `packer build jenkins.json`
 

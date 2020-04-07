@@ -1,0 +1,8 @@
+{
+  "profile": "profile",
+  "region": "us-east-1",
+  "instance_type": "t2.micro",
+  "ssh_username": "ubuntu",
+  "jenkins_admin_username": "admin",
+  "jenkins_admin_password": "admin"
+}
