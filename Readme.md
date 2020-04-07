@@ -18,7 +18,9 @@ To create the AMI:
 
 2. Create `vars.json` (use `vars.json.example` as template) to customize the build
 
-    `packer build jenkins.json`
+3. Run the Packer script:
+
+    `packer build -var-file=vars.json jenkins.json`
 
 ## Credits
 

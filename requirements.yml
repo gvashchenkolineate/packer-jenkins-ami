@@ -1,4 +1,10 @@
 ---
+
+# Java role forked from Ansible Galaxy
+- src: https://github.com/gvashchenkolineate/ansible-role-java  # URL to my fork of the Galaxy role's GitHub repository.
+  version: fix/apt-cant-install-openjdk11                       # the name of my patch branch.
+  name: gvashchenkolineate.java                                 # save the role with the name it had when downloaded from Galaxy.
+
 # Jenkins role from Ansible Galaxy
 - src: geerlingguy.jenkins
 

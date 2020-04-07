@@ -2,10 +2,36 @@
 - hosts: all
   become: yes
   become_method: sudo
-  vars:
-    jenkins_package_state: latest
-    docker_users:
-    - jenkins
+
+  pre_tasks:
+    # Must gather facts. Otherwise conditionals will cause a fail
+    - setup:
+
   roles:
-  - geerlingguy.jenkins
-  - geerlingguy.docker
+    - role: gvashchenkolineate.java
+      vars:
+        java_packages:
+          - openjdk-11-jdk
+        # Set JAVA_HOME explicitly
+        java_home: "/usr/lib/jvm/java-11-openjdk-amd64/"
+
+    - role: geerlingguy.jenkins
+      vars:
+        jenkins_package_state: latest
+        jenkins_admin_username: "{{ jenkins_admin_username }}"
+        jenkins_admin_password: "{{ jenkins_admin_password }}"
+        # Use http-url. Default https-url cause an update jenkins & plugins error: trustAnchors parameter must be non-empty
+        jenkins_updates_url: "http://updates.jenkins.io"
+        jenkins_plugins:
+          - ansicolor
+          - greenballs
+          - role-strategy
+          - nodejs
+        jenkins_plugins_install_dependencies: true
+        java_packages:
+          - openjdk-11-jdk
+
+    - role: geerlingguy.docker
+      vars:
+        docker_users:
+          - jenkins
