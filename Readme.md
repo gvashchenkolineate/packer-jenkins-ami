@@ -22,6 +22,17 @@ To create the AMI:
 
     `packer build -var-file=vars.json jenkins.json`
 
+4. Issue investigation can be performed using local Ansible playbook run in case of any problem
+
+    ```
+   ansbile-playbook jenkins.yml -vvvv \ 
+        -i hosts.yml \
+        -e "jenkins_admin_username=..." \
+        -e "jenkins_admin_password=..."
+   ```
+
+   _Don't forget to create EC2 instace and create `hosts.yml` with its IP address_
+
 ## Credits
 
 Big thanks to [Jeff Geerling](https://github.com/geerlingguy) for providing lots of awesome Ansible scripts. I used his [Jenkins](https://github.com/geerlingguy/ansible-role-jenkins) role for this project.

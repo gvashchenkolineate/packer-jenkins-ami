@@ -37,8 +37,8 @@
             "playbook_file": "./jenkins.yml",
             "extra_arguments": [
                 "-vvvv",
-                "--extra-vars", "jenkins_admin_username={{user `jenkins_admin_username`}}",
-                "--extra-vars", "jenkins_admin_password={{user `jenkins_admin_password`}}"
+                "--extra-vars", "__jenkins_admin_username={{user `jenkins_admin_username`}}",
+                "--extra-vars", "__jenkins_admin_password={{user `jenkins_admin_password`}}"
             ]
         }
     ]

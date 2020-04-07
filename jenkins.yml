@@ -18,8 +18,8 @@
     - role: geerlingguy.jenkins
       vars:
         jenkins_package_state: latest
-        jenkins_admin_username: "{{ jenkins_admin_username }}"
-        jenkins_admin_password: "{{ jenkins_admin_password }}"
+        jenkins_admin_username: "{{ __jenkins_admin_username }}"
+        jenkins_admin_password: "{{ __jenkins_admin_password }}"
         # Use http-url. Default https-url cause an update jenkins & plugins error: trustAnchors parameter must be non-empty
         jenkins_updates_url: "http://updates.jenkins.io"
         jenkins_plugins:
