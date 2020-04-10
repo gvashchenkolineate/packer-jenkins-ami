@@ -12,24 +12,29 @@
       vars:
         java_packages:
           - openjdk-11-jdk
+          - openjdk-8-jdk
         # Set JAVA_HOME explicitly
-        java_home: "/usr/lib/jvm/java-11-openjdk-amd64/"
+        java_home: "/usr/lib/jvm/java-8-openjdk-amd64/"
+#        java_home: "/usr/lib/jvm/java-11-openjdk-amd64/"
 
     - role: geerlingguy.jenkins
       vars:
         jenkins_package_state: latest
-        jenkins_admin_username: "{{ __jenkins_admin_username }}"
-        jenkins_admin_password: "{{ __jenkins_admin_password }}"
+
         # Use http-url. Default https-url cause an update jenkins & plugins error: trustAnchors parameter must be non-empty
         jenkins_updates_url: "http://updates.jenkins.io"
+
+        # Be sure to use Ansible >2.7.7, otherwise get the error installing plugins: HTTP 403 Forbidden
         jenkins_plugins:
           - ansicolor
           - greenballs
+          - locale
           - role-strategy
           - nodejs
         jenkins_plugins_install_dependencies: true
         java_packages:
           - openjdk-11-jdk
+          - openjdk-8-jdk
 
     - role: geerlingguy.docker
       vars:

@@ -8,6 +8,7 @@
         "jenkins_admin_password": "admin"
     },
     "builders": [{
+        "ami_name": "jenkins-{{timestamp}}",
         "type": "amazon-ebs",
         "profile": "{{user `profile`}}",
         "region": "{{user `region`}}",
@@ -21,8 +22,7 @@
             "most_recent": true
         },
         "instance_type": "{{user `instance_type`}}",
-        "ssh_username": "{{user `ssh_username`}}",
-        "ami_name": "Jenkins-{{timestamp}}"
+        "ssh_username": "{{user `ssh_username`}}"
     }],
     "Provisioners": [
         {
@@ -36,9 +36,9 @@
             "type": "ansible",
             "playbook_file": "./jenkins.yml",
             "extra_arguments": [
-                "-vvvv",
-                "--extra-vars", "__jenkins_admin_username={{user `jenkins_admin_username`}}",
-                "--extra-vars", "__jenkins_admin_password={{user `jenkins_admin_password`}}"
+                "-vvvvv",
+                "--extra-vars", "jenkins_admin_username={{user `jenkins_admin_username`}}",
+                "--extra-vars", "jenkins_admin_password={{user `jenkins_admin_password`}}"
             ]
         }
     ]
